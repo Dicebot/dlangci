@@ -150,7 +150,7 @@ projects=(
     "dlang-community/dfmt" # 11s
     # run in under 10s sorted alphabetically
     "Abscissa/libInputVisitor"
-    #"ariovistus/pyd"
+    "ariovistus/pyd"
     "atilaneves/automem"
     "AuburnSounds/intel-intrinsics"
     "DerelictOrg/DerelictFT"
