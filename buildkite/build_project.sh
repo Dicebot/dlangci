@@ -174,8 +174,12 @@ case "$REPO_FULL_NAME" in
 
     dlang/tools)
         # explicit test to avoid Digger setup, see dlang/tools#298 and dlang/tools#301
-        make -f posix.mak all DMD='dmd' DFLAGS=
-        make -f posix.mak test DMD='dmd' DFLAGS=
+        make -f posix.mak all MODEL=64 DMD='dmd' DFLAGS=
+        make -f posix.mak test MODEL=64 DMD='dmd' DFLAGS=
+        # test 32-bit build of the D tools
+        make -f posix.mak clean
+        make -f posix.mak all MODEL=32
+        make -f posix.mak test MODEL=32 DFLAGS=
         ;;
 
     msgpack/msgpack-d)
