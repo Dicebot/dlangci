@@ -278,12 +278,22 @@ case "$REPO_FULL_NAME" in
         rm -rf "$TMP" && mkdir -p "$TMP"
         # patch makefile which requires gdb 8 - see https://github.com/dlang/ci/pull/301
         sed "s/TESTS+=rt_trap_exceptions_drt_gdb//" -i druntime/test/exceptions/Makefile
+        # remove tests which require gdb 8 for now (see https://github.com/dlang/ci/pull/291)
+        rm dmd/test/runnable/gdb{1,10311,14225,14276,14313,14330,4149,4181}.d
+        rm dmd/test/runnable/b18504.d
+        rm dmd/test/runnable/gdb15729.sh
         # build druntime for phobos first, s.t. it doesn't fault when copying the druntime files in parallel
         # see https://github.com/dlang/ci/pull/340
         if [ "$REPO_FULL_NAME" == "dlang/phobos" ] ; then
             make -C druntime -j2 -f posix.mak
         fi
-        cd "$(basename "${REPO_FULL_NAME}")"&& make -f posix.mak clean && make -f posix.mak -j2 buildkite-test
+        # need to build everything before testing dmd
+        if [ "$REPO_FULL_NAME" == "dlang/dmd" ] ; then
+            make -C dmd -j2 -f posix.mak
+            make -C druntime -j2 -f posix.mak
+            make -C phobos -j2 -f posix.mak
+        fi
+        cd "$(basename "${REPO_FULL_NAME}")" && make -f posix.mak clean && make -f posix.mak -j2 buildkite-test
         rm -rf "$TMP"
         ;;
 
