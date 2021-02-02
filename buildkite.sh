@@ -66,6 +66,35 @@ cat << 'EOF'
 EOF
 
 ################################################################################
+# Test bootstrapping with different compilers
+################################################################################
+
+case "${BUILDKITE_REPO:-x}" in
+    "https://github.com/dlang/dmd.git" | \
+    "https://github.com/dlang/druntime.git" | \
+    "https://github.com/dlang/phobos.git" | \
+    "https://github.com/dlang/ci.git")
+
+for line in dmd-64 ; do
+    # TODO: dmd-32 (needs gcc-multilib)
+    # TODO: gdc-64 (needs binaries)
+    # TODO: ldc-64 (failing - see https://github.com/dlang/ci/pull/261)
+    IFS=- read -r compiler model <<< "$line"
+cat << EOF
+  - command: |
+        ${LOAD_CI_FOLDER}
+        DMD=$compiler MODEL=$model ./buildkite/test_bootstrap.sh
+    label: "Bootstrap ($compiler)"
+    ${DEFAULT_COMMAND_PROPS}
+EOF
+
+done
+    ;;
+    *)
+    ;;
+esac
+
+################################################################################
 # Style & coverage targets
 # Must run after the 'wait' to avoid blocking the build_distribution step
 # (and thus all subsequent project builds)

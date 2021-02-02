@@ -61,6 +61,7 @@
     - role: buildkite_agent
       priority: 5 # Higher priority agents are assigned work first
       tags: buildkite_agent
+        - gcc-multilib # for 32-bit builds
 
 - hosts: ci.dlang.io
   roles:
