@@ -116,6 +116,7 @@ projects=(
     "vibe-d/vibe.d+base" # 4m31s
     "dlang/phobos" # 4m50s
     "dlang/phobos+no-autodecode"
+    "dlang/phobos+preview-in"
     "sociomantic-tsunami/ocean" # 4m49s
     "sociomantic-tsunami/swarm"
     "sociomantic-tsunami/turtle"
@@ -193,6 +194,7 @@ memory_req["sociomantic-tsunami/ocean"]=high
 memory_req["dlang/dlang-bot"]=high
 memory_req["dlang/phobos"]=high
 memory_req["dlang/phobos+no-autodecode"]=high
+memory_req["dlang/phobos+preview-in"]=high
 memory_req["dlang/dub"]=high
 memory_req["higgsjs/Higgs"]=high
 memory_req["d-language-server/dls"]=high
