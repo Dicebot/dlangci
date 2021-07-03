@@ -8,7 +8,7 @@ fi
 
 read -r -d '' LOAD_CI_FOLDER <<- EOM
         # just to be sure there isn't anything old left
-        git clean -ffdxq .
+        git clean ${BUILDKITE_GIT_CLEAN_FLAGS}
         echo "--- Load CI folder"
         # make sure the entire CI folder is loaded
         if [ ! -d buildkite ] ; then
@@ -23,7 +23,7 @@ EOM
 
 read -r -d '' LOAD_DISTRIBUTION <<- EOM
         # just to be sure there isn't anything old left
-        git clean -ffdxq .
+        git clean ${BUILDKITE_GIT_CLEAN_FLAGS}
         echo "--- Load distribution archive"
         buildkite-agent artifact download distribution.tar.xz .
         tar xfJ distribution.tar.xz
@@ -207,7 +207,7 @@ for project_name in "${projects[@]}" ; do
 cat << EOF
   - command: |
         # just to be sure there isn't anything old left
-        git clean -ffdxq .
+        git clean ${BUILDKITE_GIT_CLEAN_FLAGS}
 
         # don't build everything from the root folder
         mkdir build && cd build
