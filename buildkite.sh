@@ -25,6 +25,7 @@ read -r -d '' LOAD_DISTRIBUTION <<- EOM
         # just to be sure there isn't anything old left
         git clean ${BUILDKITE_GIT_CLEAN_FLAGS}
         echo "--- Load distribution archive"
+        echo $(pwd); ls -la
         buildkite-agent artifact download distribution.tar.xz .
         tar xfJ distribution.tar.xz
         rm -rf buildkite
