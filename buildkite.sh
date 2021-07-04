@@ -109,6 +109,7 @@ esac
 ################################################################################
 projects=(
     # sorted by test time fast to slow (to minimize pending queue length)
+    "symmetryinvestments/autowrap" #>10min
     "vibe-d/vibe.d+examples" # 9m51s
     "vibe-d/vibe.d+tests" # 6m44s
 #    "dlang/dlang-bot" # 4m54s
